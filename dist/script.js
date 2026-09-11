@@ -2,6 +2,7 @@ const header = document.querySelector('.site-header');
 const menuButton = document.querySelector('.menu-toggle');
 const mobileMenu = document.querySelector('.mobile-menu');
 const mobileAppointment = document.querySelector('.mobile-appointment');
+const hero = document.querySelector('.hero');
 
 const syncHeader = () => {
   header.classList.toggle('scrolled', window.scrollY > 24);
@@ -9,6 +10,11 @@ const syncHeader = () => {
 };
 syncHeader();
 window.addEventListener('scroll', syncHeader, { passive: true });
+
+const heroObserver = new IntersectionObserver(([entry]) => {
+  mobileAppointment.classList.toggle('visible', !entry.isIntersecting);
+}, { threshold: 0.18 });
+heroObserver.observe(hero);
 
 menuButton.addEventListener('click', () => {
   const open = !mobileMenu.classList.contains('open');
