@@ -209,7 +209,8 @@ main { overflow: clip; }
 .before-after { padding: 76px 8vw 86px; background: radial-gradient(ellipse at 4% 80%, #d8e9ed, transparent 52%), #f8fafb; }
 .carousel { position: relative; min-width: 0; }
 .before-after .carousel { max-width: 1120px; margin: 0 auto; }
-.carousel-track { cursor: grab; overscroll-behavior-x: contain; }
+.carousel-track { --per-view: 1; --card-gap: 16px; cursor: grab; overscroll-behavior-x: contain; scroll-padding-inline: 4px; gap: var(--card-gap); }
+.carousel-track > * { flex: 0 0 calc((100% - (var(--per-view) - 1) * var(--card-gap)) / var(--per-view)); }
 .carousel-track:focus-visible { outline-offset: -2px; }
 .carousel-track.is-dragging { cursor: grabbing; scroll-snap-type: none; scroll-behavior: auto; user-select: none; }
 .carousel-track.is-stepping { scroll-snap-type: none; }
@@ -226,9 +227,8 @@ main { overflow: clip; }
 .carousel-nav button:disabled { opacity: .3; cursor: default; }
 .results-heading { display: flex; align-items: end; justify-content: space-between; gap: 8vw; margin-bottom: 34px; }
 .results-heading > p { max-width: 420px; margin-bottom: 7px; color: var(--muted); font-size: 17px; line-height: 1.65; }
-.result-frame { max-width: 1120px; margin: 0 auto; padding: 14px 4px 18px; display: flex; align-items: flex-start; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: #9dbbc3 transparent; }
-.result-card { position: relative; flex: 0 0 272px; margin: 0; scroll-snap-align: start; overflow: hidden; border: 1px solid #fff; border-radius: 22px; background: #fff; box-shadow: 0 16px 42px #66869118, 0 0 42px #d7e3e329; transition: transform .3s, box-shadow .3s; }
-.result-card--wide { flex-basis: 272px; }
+.result-frame { --per-view: 4; max-width: 1120px; margin: 0 auto; padding: 14px 4px 18px; display: flex; align-items: flex-start; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: #9dbbc3 transparent; }
+.result-card { position: relative; margin: 0; scroll-snap-align: start; overflow: hidden; border: 1px solid #fff; border-radius: 22px; background: #fff; box-shadow: 0 16px 42px #66869118, 0 0 42px #d7e3e329; transition: transform .3s, box-shadow .3s; }
 .result-card:hover { transform: translateY(-5px); box-shadow: 0 22px 48px #66869126, 0 0 48px #d7e3e34b; }
 .result-trigger { position: relative; display: block; width: 100%; padding: 0; border: 0; color: inherit; background: transparent; text-align: left; cursor: zoom-in; }
 .result-trigger:after { content: ""; position: absolute; inset: 0; opacity: 0; background: linear-gradient(180deg, transparent 58%, #203f4d62); transition: opacity .25s; pointer-events: none; }
@@ -263,8 +263,8 @@ body.lightbox-open { overflow: hidden; }
 .reviews { padding: 76px 8vw; display: grid; grid-template-columns: .82fr 1.18fr; gap: 6vw; align-items: center; background: radial-gradient(ellipse at 89% 30%, #e2dbec66, transparent 55%), #f8fafb; }
 .reviews-intro { max-width: 340px; margin-top: 19px; color: var(--muted); font-size: 17px; line-height: 1.65; }
 .reviews-heading > a { display: inline-flex; align-items: center; min-height: 44px; margin-top: 19px; padding-bottom: 7px; border-bottom: 1px solid var(--line); font-size: 15px; font-weight: 500; }
-.review-list { display: flex; gap: 14px; overflow-x: auto; padding: 5px 4px 18px; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: #9dbbc3 transparent; }
-.review-list article { flex: 0 0 min(395px, 34vw); min-height: 368px; padding: 30px; display: flex; flex-direction: column; justify-content: space-between; scroll-snap-align: start; border: 1px solid #fff; border-radius: 22px; background: linear-gradient(140deg, #fff, #e9f1f4); box-shadow: 0 14px 38px #607b8a0b; }
+.review-list { --per-view: 2; --card-gap: 14px; display: flex; overflow-x: auto; padding: 5px 4px 18px; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: #9dbbc3 transparent; }
+.review-list article { min-height: 368px; padding: 30px; display: flex; flex-direction: column; justify-content: space-between; scroll-snap-align: start; border: 1px solid #fff; border-radius: 22px; background: linear-gradient(140deg, #fff, #e9f1f4); box-shadow: 0 14px 38px #607b8a0b; }
 .review-list article:first-child { color: white; background: radial-gradient(ellipse at 100% 0%, #80abb5, transparent 80%), linear-gradient(130deg, #2d4d63, #4a7787); border-color: #7ca1af88; box-shadow: 0 14px 38px #476f811f, 0 0 45px #bad7e224; }
 .review-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .review-list span { color: #d2a37a; font-size: 13px; letter-spacing: .12em; }
@@ -374,11 +374,14 @@ footer > a:hover { color: #fff; }
   .treatment-grid { grid-template-columns: 1fr 1fr; }
   .before-after .carousel { max-width: none; }
   .reviews { grid-template-columns: 1fr; gap: 30px; }
-  .review-list article { flex-basis: min(400px, 62vw); min-height: 330px; }
+  .result-frame { --per-view: 3; }
+  .review-list { --per-view: 3; }
+  .review-list article { min-height: 330px; }
   .clinic { grid-template-columns: 1fr; gap: 34px; }
   .clinic-copy > p:not(.section-kicker) { max-width: 540px; }
 }
 @media (max-width: 900px) {
+  .result-frame, .review-list { --per-view: 2; }
   .instagram, .contact { grid-template-columns: 1fr; gap: 32px; }
   .contact { min-height: 0; }
 }
@@ -452,8 +455,8 @@ footer > a:hover { color: #fff; }
   .before-after { padding: 52px 22px 60px; }
   .results-heading { display: block; margin-bottom: 25px; }
   .results-heading > p { margin-top: 17px; font-size: 16px; }
-  .result-frame { gap: 10px; padding: 4px 1px 14px; }
-  .result-card, .result-card--wide { flex-basis: 78vw; border-radius: 17px; }
+  .result-frame { --per-view: 1; --card-gap: 10px; padding: 4px 1px 14px; }
+  .result-card { border-radius: 17px; }
   .result-card figcaption { min-height: 78px; padding: 14px 15px; }
   .result-card figcaption b { font-size: 20px; }
   .result-card figcaption small { font-size: 12.5px; }
@@ -472,8 +475,8 @@ footer > a:hover { color: #fff; }
   .lightbox-caption > p:last-child { margin-top: 7px; font-size: 12px; }
   .lightbox-close { top: -10px; right: -10px; width: 36px; height: 36px; font-size: 23px; }
   .reviews-intro { font-size: 16px; }
-  .review-list { gap: 10px; padding-right: 1px; }
-  .review-list article { flex-basis: 86vw; min-height: 330px; padding: 26px; }
+  .review-list { --per-view: 1; --card-gap: 10px; padding-right: 1px; }
+  .review-list article { min-height: 330px; padding: 26px; }
   .review-list blockquote { font-size: 24px; -webkit-line-clamp: 8; margin: 22px 0; }
   .review-top small { font-size: 12.5px; }
   .review-scroll-note { font-size: 12.5px; }
