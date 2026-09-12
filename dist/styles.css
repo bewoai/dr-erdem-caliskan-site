@@ -34,8 +34,9 @@ main { overflow: clip; }
   display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px;
   background: rgba(248,250,251,.7); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
   border-bottom: 1px solid rgba(255,255,255,.6);
-  transition: height .35s ease, background .3s, box-shadow .3s;
+  transition: transform .38s ease, height .35s ease, background .3s, box-shadow .3s;
 }
+.site-header.hidden { transform: translateY(-100%); box-shadow: none; }
 .site-header.scrolled { height: 72px; background: rgba(248,250,251,.94); box-shadow: 0 6px 35px #294b6209; }
 .site-header.scrolled .brand img { width: 42px; height: 42px; }
 .site-header.scrolled .brand b { font-size: 14px; }

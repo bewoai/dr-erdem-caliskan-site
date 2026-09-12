@@ -11,9 +11,40 @@ const focusTabs = [...document.querySelectorAll('.focus-tab')];
 const focusDescription = document.querySelector('.focus-description');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-const syncHeader = () => header?.classList.toggle('scrolled', window.scrollY > 20);
+let lastScrollY = window.scrollY;
+let revealHeaderUntil = 0;
+
+function syncHeader() {
+  if (!header) return;
+  const y = Math.max(0, window.scrollY);
+  const delta = y - lastScrollY;
+  header.classList.toggle('scrolled', y > 20);
+
+  // Asagi kaydirirken baslik cekilir, yukari kaydirirken hemen geri gelir.
+  // Menu acikken, sayfa basindayken ve bir bag baglantisina tiklandiktan hemen
+  // sonra baslik her zaman gorunur kalir.
+  const menuOpen = mobileMenu?.classList.contains('open');
+  if (menuOpen || y < 220 || Date.now() < revealHeaderUntil) {
+    header.classList.remove('hidden');
+  } else if (delta > 4) {
+    header.classList.add('hidden');
+  } else if (delta < -4) {
+    header.classList.remove('hidden');
+  }
+
+  if (Math.abs(delta) > 1) lastScrollY = y;
+}
+
 syncHeader();
 window.addEventListener('scroll', syncHeader, { passive: true });
+
+// Sayfa ici baglantilar asagi kaydirdigi icin baslik kisa sure gorunur tutulur.
+document.querySelectorAll('a[href^="#"]').forEach((link) => {
+  link.addEventListener('click', () => {
+    revealHeaderUntil = Date.now() + 900;
+    header?.classList.remove('hidden');
+  });
+});
 
 function setMenu(open) {
   mobileMenu?.classList.toggle('open', open);
