@@ -140,18 +140,31 @@ reducedMotion.addEventListener('change', () => {
 
 const lightbox = document.querySelector('#result-lightbox');
 const lightboxImage = document.querySelector('#lightbox-image');
+const lightboxVideo = document.querySelector('#lightbox-video');
 const lightboxTitle = document.querySelector('#lightbox-title');
 const lightboxDetail = document.querySelector('#lightbox-detail');
 const lightboxKicker = document.querySelector('#lightbox-kicker');
 const lightboxClose = lightbox?.querySelector('.lightbox-close');
-const lightboxTriggers = [...document.querySelectorAll('[data-lightbox-src]')];
+const lightboxTriggers = [...document.querySelectorAll('[data-lightbox-src], [data-lightbox-video]')];
 let lightboxLastFocus = null;
 
 function openLightbox(trigger) {
   if (!lightbox || !lightboxImage || !lightboxTitle || !lightboxDetail) return;
   lightboxLastFocus = trigger;
-  lightboxImage.src = trigger.dataset.lightboxSrc || '';
-  lightboxImage.alt = trigger.querySelector('img')?.alt || '';
+  const videoSrc = trigger.dataset.lightboxVideo;
+  if (lightboxVideo) {
+    lightboxVideo.hidden = !videoSrc;
+    if (videoSrc) {
+      // preload="none" sayesinde dosya ancak oynatilirken inmeye baslar
+      lightboxVideo.poster = trigger.dataset.lightboxPoster || '';
+      lightboxVideo.src = videoSrc;
+    }
+  }
+  lightboxImage.hidden = Boolean(videoSrc);
+  if (trigger.dataset.lightboxSrc) {
+    lightboxImage.src = trigger.dataset.lightboxSrc;
+    lightboxImage.alt = trigger.querySelector('img')?.alt || '';
+  }
   lightboxTitle.textContent = trigger.dataset.lightboxTitle || '';
   lightboxDetail.textContent = trigger.dataset.lightboxDetail || '';
   if (lightboxKicker) lightboxKicker.textContent = trigger.dataset.lightboxKicker || 'ÖNCESİ / SONRASI';
@@ -165,6 +178,11 @@ function closeLightbox() {
   if (!lightbox || lightbox.hidden) return;
   lightbox.classList.remove('is-open');
   document.body.classList.remove('lightbox-open');
+  if (lightboxVideo && !lightboxVideo.hidden) {
+    lightboxVideo.pause();
+    lightboxVideo.removeAttribute('src');
+    lightboxVideo.load();
+  }
   window.setTimeout(() => {
     if (!lightbox.classList.contains('is-open')) lightbox.hidden = true;
   }, 260);
