@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <svg class="icon-sprite" aria-hidden="true" focusable="false" width="0" height="0">
+      <symbol id="icon-whatsapp" viewBox="0 0 24 24"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></symbol>
+    </svg>
+
     <header class="site-header" id="top">
       <a class="brand" href="#top" aria-label="Dr. Erdem Çalışkan ana sayfa">
         <img src="assets/logo.png" alt="" />
@@ -35,6 +39,7 @@
       <a href="#instagram">Instagram</a>
       <a href="#klinik">Klinik</a>
       <a href="#iletisim">İletişim</a>
+      <a class="mobile-menu-cta" href="https://wa.me/905345662511" target="_blank" rel="noreferrer"><svg class="wa-icon" aria-hidden="true"><use href="#icon-whatsapp"></use></svg> WhatsApp’tan randevu al <span aria-hidden="true">↗</span></a>
     </nav>
 
     <main>
@@ -123,13 +128,14 @@
           <p>Doğru uygulama, ayrıntılı değerlendirme sonrasında belirlenir.</p>
         </div>
         <div class="treatment-grid reveal">
-          <a href="https://wa.me/905345662511?text=Botoks%20uygulaması%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" rel="noreferrer"><span>01</span><b>Botoks</b><i>↗</i></a>
-          <a href="https://wa.me/905345662511?text=Dolgu%20uygulaması%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" rel="noreferrer"><span>02</span><b>Dolgu</b><i>↗</i></a>
-          <a href="https://wa.me/905345662511?text=Altın%20İğne%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" rel="noreferrer"><span>03</span><b>Altın İğne</b><i>↗</i></a>
-          <a href="https://wa.me/905345662511?text=Mezoterapi%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" rel="noreferrer"><span>04</span><b>Mezoterapi</b><i>↗</i></a>
-          <a href="https://wa.me/905345662511?text=BBL%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" rel="noreferrer"><span>05</span><b>BBL</b><i>↗</i></a>
-          <a href="https://wa.me/905345662511?text=Fraksiyonel%20Lazer%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" rel="noreferrer"><span>06</span><b>Fraksiyonel Lazer</b><i>↗</i></a>
+          <a class="treatment-card" href="https://wa.me/905345662511?text=Botoks%20uygulaması%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" rel="noreferrer" aria-label="Botoks hakkında WhatsApp’tan bilgi alın"><span>01</span><b>Botoks</b><em class="treatment-action"><svg class="wa-icon" aria-hidden="true"><use href="#icon-whatsapp"></use></svg> WhatsApp’tan bilgi&nbsp;al</em><i aria-hidden="true">↗</i></a>
+          <a class="treatment-card" href="https://wa.me/905345662511?text=Dolgu%20uygulaması%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" rel="noreferrer" aria-label="Dolgu hakkında WhatsApp’tan bilgi alın"><span>02</span><b>Dolgu</b><em class="treatment-action"><svg class="wa-icon" aria-hidden="true"><use href="#icon-whatsapp"></use></svg> WhatsApp’tan bilgi&nbsp;al</em><i aria-hidden="true">↗</i></a>
+          <a class="treatment-card" href="https://wa.me/905345662511?text=Altın%20İğne%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" rel="noreferrer" aria-label="Altın İğne hakkında WhatsApp’tan bilgi alın"><span>03</span><b>Altın İğne</b><em class="treatment-action"><svg class="wa-icon" aria-hidden="true"><use href="#icon-whatsapp"></use></svg> WhatsApp’tan bilgi&nbsp;al</em><i aria-hidden="true">↗</i></a>
+          <a class="treatment-card" href="https://wa.me/905345662511?text=Mezoterapi%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" rel="noreferrer" aria-label="Mezoterapi hakkında WhatsApp’tan bilgi alın"><span>04</span><b>Mezoterapi</b><em class="treatment-action"><svg class="wa-icon" aria-hidden="true"><use href="#icon-whatsapp"></use></svg> WhatsApp’tan bilgi&nbsp;al</em><i aria-hidden="true">↗</i></a>
+          <a class="treatment-card" href="https://wa.me/905345662511?text=BBL%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" rel="noreferrer" aria-label="BBL hakkında WhatsApp’tan bilgi alın"><span>05</span><b>BBL</b><em class="treatment-action"><svg class="wa-icon" aria-hidden="true"><use href="#icon-whatsapp"></use></svg> WhatsApp’tan bilgi&nbsp;al</em><i aria-hidden="true">↗</i></a>
+          <a class="treatment-card" href="https://wa.me/905345662511?text=Fraksiyonel%20Lazer%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" rel="noreferrer" aria-label="Fraksiyonel Lazer hakkında WhatsApp’tan bilgi alın"><span>06</span><b>Fraksiyonel Lazer</b><em class="treatment-action"><svg class="wa-icon" aria-hidden="true"><use href="#icon-whatsapp"></use></svg> WhatsApp’tan bilgi&nbsp;al</em><i aria-hidden="true">↗</i></a>
         </div>
+        <p class="treatment-note"><svg class="wa-icon" aria-hidden="true"><use href="#icon-whatsapp"></use></svg> Kartlara dokunduğunuzda WhatsApp sohbeti ilgili uygulama için hazır şekilde açılır.</p>
       </section>
 
       <section class="before-after" id="sonuclar" aria-labelledby="results-title">
@@ -140,44 +146,52 @@
           </div>
           <p>Danışanların açık rızasıyla, bilgilendirme amacıyla paylaşılan gerçek uygulama örnekleri.</p>
         </div>
-        <div class="result-frame result-gallery reveal">
+        <div class="carousel reveal" data-carousel>
+        <div class="result-frame result-gallery carousel-track" tabindex="0" role="group" aria-label="Öncesi ve sonrası örnekleri">
           <figure class="result-card result-card--wide">
             <button class="result-trigger" type="button" aria-haspopup="dialog" data-lightbox-src="assets/before-after-lip-filler.png" data-lightbox-title="Dudak dolgusu" data-lightbox-detail="Dudak asimetrisine yönelik uygulama" aria-label="Dudak dolgusu before after görselini büyüt">
               <img src="assets/before-after-lip-filler.png" alt="Dudak dolgusu öncesi ve sonrası sonucu" loading="lazy" />
-              <span class="result-trigger-hint">Görseli büyüt ↗</span>
+              <span class="zoom-hint">Görseli büyüt ↗</span>
             </button>
             <figcaption><span>01</span><b>Dudak dolgusu</b><small>Dudak asimetrisine yönelik uygulama</small></figcaption>
           </figure>
           <figure class="result-card">
             <button class="result-trigger" type="button" aria-haspopup="dialog" data-lightbox-src="assets/before-after-nose-filler.png" data-lightbox-title="Burun dolgusu" data-lightbox-detail="02.09.2026" aria-label="Burun dolgusu before after görselini büyüt">
               <img src="assets/before-after-nose-filler.png" alt="Burun dolgusu öncesi ve sonrası sonucu" loading="lazy" />
-              <span class="result-trigger-hint">Görseli büyüt ↗</span>
+              <span class="zoom-hint">Görseli büyüt ↗</span>
             </button>
             <figcaption><span>02</span><b>Burun dolgusu</b><small>02.09.2026</small></figcaption>
           </figure>
           <figure class="result-card">
             <button class="result-trigger" type="button" aria-haspopup="dialog" data-lightbox-src="assets/before-after-botox.png" data-lightbox-title="Botoks" data-lightbox-detail="19.08.2026" aria-label="Botoks before after görselini büyüt">
               <img src="assets/before-after-botox.png" alt="Botoks öncesi ve sonrası sonucu" loading="lazy" />
-              <span class="result-trigger-hint">Görseli büyüt ↗</span>
+              <span class="zoom-hint">Görseli büyüt ↗</span>
             </button>
             <figcaption><span>03</span><b>Botoks</b><small>19.08.2026</small></figcaption>
           </figure>
           <figure class="result-card">
             <button class="result-trigger" type="button" aria-haspopup="dialog" data-lightbox-src="assets/before-after-chin-filler.png" data-lightbox-title="Çene dolgusu" data-lightbox-detail="28.08.2026" aria-label="Çene dolgusu before after görselini büyüt">
               <img src="assets/before-after-chin-filler.png" alt="Çene dolgusu öncesi ve sonrası sonucu" loading="lazy" />
-              <span class="result-trigger-hint">Görseli büyüt ↗</span>
+              <span class="zoom-hint">Görseli büyüt ↗</span>
             </button>
             <figcaption><span>04</span><b>Çene dolgusu</b><small>28.08.2026</small></figcaption>
           </figure>
           <figure class="result-card">
             <button class="result-trigger" type="button" aria-haspopup="dialog" data-lightbox-src="assets/before-after-nose-profile.png" data-lightbox-title="Burun profili" data-lightbox-detail="29.08.2026" aria-label="Burun profili before after görselini büyüt">
               <img src="assets/before-after-nose-profile.png" alt="Burun profili öncesi ve sonrası sonucu" loading="lazy" />
-              <span class="result-trigger-hint">Görseli büyüt ↗</span>
+              <span class="zoom-hint">Görseli büyüt ↗</span>
             </button>
             <figcaption><span>05</span><b>Burun profili</b><small>29.08.2026</small></figcaption>
           </figure>
         </div>
-        <p class="result-note">Sonuçlar kişiden kişiye değişebilir; kesin değerlendirme için hekim muayenesi gerekir. <span>Kaydırarak diğer örnekleri görün →</span></p>
+        <div class="carousel-foot">
+          <p class="result-note">Sonuçlar kişiden kişiye değişebilir; kesin değerlendirme için hekim muayenesi gerekir. <span>Oklarla gezinebilir veya kartları sürükleyebilirsiniz.</span></p>
+          <div class="carousel-nav">
+            <button type="button" data-carousel-prev aria-label="Önceki örnekler"><span aria-hidden="true">←</span></button>
+            <button type="button" data-carousel-next aria-label="Sonraki örnekler"><span aria-hidden="true">→</span></button>
+          </div>
+        </div>
+        </div>
       </section>
 
       <div class="lightbox" id="result-lightbox" hidden>
@@ -186,7 +200,7 @@
           <button class="lightbox-close" type="button" data-lightbox-close aria-label="Görseli kapat">×</button>
           <div class="lightbox-visual"><img id="lightbox-image" src="" alt="" /></div>
           <div class="lightbox-caption">
-            <p class="section-kicker">ÖNCESİ / SONRASI</p>
+            <p class="section-kicker" id="lightbox-kicker">ÖNCESİ / SONRASI</p>
             <h2 id="lightbox-title"></h2>
             <p id="lightbox-detail"></p>
           </div>
@@ -200,7 +214,8 @@
           <p class="reviews-intro">Danışanların DoktorTakvimi’nde paylaştığı gerçek deneyimlerden seçkiler.</p>
           <a href="https://www.doktortakvimi.com/profil/erdem-caliskan#profile-reviews" target="_blank" rel="noreferrer">Tüm görüşleri DoktorTakvimi’nde gör ↗</a>
         </div>
-        <div class="review-list reveal">
+        <div class="carousel reveal" data-carousel>
+        <div class="review-list carousel-track" tabindex="0" role="group" aria-label="Hasta görüşleri">
           <article>
             <div class="review-top"><span>★★★★★</span><small>Doğrulanmış görüş</small></div>
             <blockquote>“Erdem bey'in kliniğine ilk defa gidiyorum. Asistanı ve kendisinin güler yüzü benim isteklerime göre hareket etmeleri dinlemeleri beni çok memnun etti. Süreci çok güzel yönetiyorlar. Bundan sonra ki işlemlerimde de Erdem bey ile devam etmeyi düşünüyorum. Herkese tavsiye ediyorum.”</blockquote>
@@ -237,7 +252,14 @@
             <div class="review-footer"><b>E....</b><span>17 Temmuz 2026 · Altın iğne · Somon DNA · Sıvı yüz germe</span></div>
           </article>
         </div>
-        <p class="review-scroll-note">Diğer görüşleri kaydırarak okuyun <span>→</span></p>
+        <div class="carousel-foot">
+          <p class="review-scroll-note">Oklarla gezinebilir veya kartları sürükleyebilirsiniz.</p>
+          <div class="carousel-nav">
+            <button type="button" data-carousel-prev aria-label="Önceki görüşler"><span aria-hidden="true">←</span></button>
+            <button type="button" data-carousel-next aria-label="Sonraki görüşler"><span aria-hidden="true">→</span></button>
+          </div>
+        </div>
+        </div>
       </section>
 
       <section class="instagram" id="instagram" aria-labelledby="instagram-title">
@@ -260,9 +282,24 @@
           <a class="button-link" href="https://www.google.com/maps/search/?api=1&amp;query=Cadde+54+AVM+3F+Blok+No+103+Serdivan+Sakarya+54050" target="_blank" rel="noreferrer">Konumu haritada aç <span>↗</span></a>
         </div>
         <div class="clinic-gallery reveal">
-          <figure class="clinic-image clinic-image--large"><img src="assets/clinic-lounge.webp" alt="Kliniğin aydınlık bekleme alanı" loading="lazy" /></figure>
-          <figure class="clinic-image clinic-image--top"><img src="assets/clinic-treatment.webp" alt="Kliniğin uygulama odası" loading="lazy" /></figure>
-          <figure class="clinic-image clinic-image--bottom"><img src="assets/clinic-art.webp" alt="Klinikteki heykel detayı" loading="lazy" /></figure>
+          <figure class="clinic-image clinic-image--large">
+            <button class="clinic-trigger" type="button" aria-haspopup="dialog" data-lightbox-src="assets/clinic-lounge.webp" data-lightbox-kicker="KLİNİK" data-lightbox-title="Bekleme alanı" data-lightbox-detail="Serdivan / Sakarya · Cadde 54 AVM" aria-label="Bekleme alanı görselini büyüt">
+              <img src="assets/clinic-lounge.webp" alt="Kliniğin aydınlık bekleme alanı" loading="lazy" />
+              <span class="zoom-hint">Görseli büyüt ↗</span>
+            </button>
+          </figure>
+          <figure class="clinic-image clinic-image--top">
+            <button class="clinic-trigger" type="button" aria-haspopup="dialog" data-lightbox-src="assets/clinic-treatment.webp" data-lightbox-kicker="KLİNİK" data-lightbox-title="Uygulama odası" data-lightbox-detail="Muayene, uygulama ve takip adımları aynı özenle yürütülür." aria-label="Uygulama odası görselini büyüt">
+              <img src="assets/clinic-treatment.webp" alt="Kliniğin uygulama odası" loading="lazy" />
+              <span class="zoom-hint">Büyüt ↗</span>
+            </button>
+          </figure>
+          <figure class="clinic-image clinic-image--bottom">
+            <button class="clinic-trigger" type="button" aria-haspopup="dialog" data-lightbox-src="assets/clinic-art.webp" data-lightbox-kicker="KLİNİK" data-lightbox-title="Klinikten bir detay" data-lightbox-detail="Sakin bir alan, özenli bir süreç." aria-label="Klinik detay görselini büyüt">
+              <img src="assets/clinic-art.webp" alt="Klinikteki heykel detayı" loading="lazy" />
+              <span class="zoom-hint">Büyüt ↗</span>
+            </button>
+          </figure>
           <span class="clinic-stamp">SERDİVAN<br /><em>SAKARYA</em></span>
         </div>
       </section>

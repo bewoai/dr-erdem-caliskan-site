@@ -111,8 +111,9 @@ const lightbox = document.querySelector('#result-lightbox');
 const lightboxImage = document.querySelector('#lightbox-image');
 const lightboxTitle = document.querySelector('#lightbox-title');
 const lightboxDetail = document.querySelector('#lightbox-detail');
+const lightboxKicker = document.querySelector('#lightbox-kicker');
 const lightboxClose = lightbox?.querySelector('.lightbox-close');
-const resultTriggers = [...document.querySelectorAll('.result-trigger')];
+const lightboxTriggers = [...document.querySelectorAll('[data-lightbox-src]')];
 let lightboxLastFocus = null;
 
 function openLightbox(trigger) {
@@ -122,6 +123,7 @@ function openLightbox(trigger) {
   lightboxImage.alt = trigger.querySelector('img')?.alt || '';
   lightboxTitle.textContent = trigger.dataset.lightboxTitle || '';
   lightboxDetail.textContent = trigger.dataset.lightboxDetail || '';
+  if (lightboxKicker) lightboxKicker.textContent = trigger.dataset.lightboxKicker || 'ÖNCESİ / SONRASI';
   lightbox.hidden = false;
   document.body.classList.add('lightbox-open');
   requestAnimationFrame(() => lightbox.classList.add('is-open'));
@@ -138,7 +140,7 @@ function closeLightbox() {
   lightboxLastFocus?.focus();
 }
 
-resultTriggers.forEach((trigger) => trigger.addEventListener('click', () => openLightbox(trigger)));
+lightboxTriggers.forEach((trigger) => trigger.addEventListener('click', () => openLightbox(trigger)));
 lightbox?.addEventListener('click', (event) => {
   if (event.target.closest('[data-lightbox-close]')) closeLightbox();
 });
@@ -146,3 +148,111 @@ document.addEventListener('keydown', (event) => {
   if (!lightbox || lightbox.hidden) return;
   if (event.key === 'Escape') closeLightbox();
 });
+
+const scrollBehavior = () => (reducedMotion.matches ? 'auto' : 'smooth');
+
+document.querySelectorAll('[data-carousel]').forEach((root) => {
+  const track = root.querySelector('.carousel-track');
+  if (!track) return;
+  const prev = root.querySelector('[data-carousel-prev]');
+  const next = root.querySelector('[data-carousel-next]');
+
+  const stepSize = () => {
+    const card = track.firstElementChild;
+    if (!card) return track.clientWidth * 0.8;
+    const styles = window.getComputedStyle(track);
+    const gap = parseFloat(styles.columnGap || styles.gap) || 0;
+    return card.getBoundingClientRect().width + gap;
+  };
+
+  const syncButtons = () => {
+    const max = track.scrollWidth - track.clientWidth - 8;
+    if (prev) prev.disabled = track.scrollLeft <= 8;
+    if (next) next.disabled = track.scrollLeft >= max;
+  };
+
+  // Zorunlu scroll-snap, programatik smooth kaydırmayı iptal ettiği için adım boyunca kapatılır.
+  let snapTimer;
+  const stepBy = (direction) => {
+    track.classList.add('is-stepping');
+    track.scrollBy({ left: direction * stepSize(), behavior: scrollBehavior() });
+    window.clearTimeout(snapTimer);
+    snapTimer = window.setTimeout(() => track.classList.remove('is-stepping'), 620);
+  };
+
+  prev?.addEventListener('click', () => stepBy(-1));
+  next?.addEventListener('click', () => stepBy(1));
+  track.addEventListener('scroll', syncButtons, { passive: true });
+  window.addEventListener('resize', syncButtons);
+  syncButtons();
+
+  let pointerId = null;
+  let startX = 0;
+  let startScroll = 0;
+  let distance = 0;
+  let suppressClick = false;
+
+  track.addEventListener('pointerdown', (event) => {
+    if (event.pointerType === 'touch' || event.button !== 0) return;
+    pointerId = event.pointerId;
+    startX = event.clientX;
+    startScroll = track.scrollLeft;
+    distance = 0;
+  });
+
+  track.addEventListener('pointermove', (event) => {
+    if (pointerId === null || event.pointerId !== pointerId) return;
+    const delta = event.clientX - startX;
+    if (!track.classList.contains('is-dragging')) {
+      if (Math.abs(delta) < 5) return;
+      track.classList.add('is-dragging');
+      try { track.setPointerCapture(pointerId); } catch (error) { /* yok say */ }
+    }
+    distance = Math.abs(delta);
+    track.scrollLeft = startScroll - delta;
+  });
+
+  const endDrag = (event) => {
+    if (pointerId === null || (event && event.pointerId !== pointerId)) return;
+    try { track.releasePointerCapture(pointerId); } catch (error) { /* yok say */ }
+    pointerId = null;
+    if (track.classList.contains('is-dragging')) {
+      track.classList.remove('is-dragging');
+      if (distance > 5) {
+        suppressClick = true;
+        window.setTimeout(() => { suppressClick = false; }, 0);
+      }
+    }
+    syncButtons();
+  };
+
+  track.addEventListener('pointerup', endDrag);
+  track.addEventListener('pointercancel', endDrag);
+  track.addEventListener('lostpointercapture', endDrag);
+  track.addEventListener('dragstart', (event) => event.preventDefault());
+  track.addEventListener('click', (event) => {
+    if (!suppressClick) return;
+    event.preventDefault();
+    event.stopPropagation();
+  }, true);
+});
+
+const navLinks = [...document.querySelectorAll('.desktop-nav a')];
+const navSections = navLinks
+  .map((link) => document.querySelector(link.getAttribute('href')))
+  .filter(Boolean);
+
+if ('IntersectionObserver' in window && navSections.length) {
+  const setActiveSection = (id) => {
+    navLinks.forEach((link) => {
+      if (link.getAttribute('href') === '#' + id) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+    });
+  };
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) setActiveSection(entry.target.id);
+    });
+  }, { rootMargin: '-50% 0px -49% 0px', threshold: 0 });
+  navSections.forEach((section) => sectionObserver.observe(section));
+}
