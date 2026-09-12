@@ -11,29 +11,9 @@ const focusTabs = [...document.querySelectorAll('.focus-tab')];
 const focusDescription = document.querySelector('.focus-description');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-// Hero yapiskan oldugu icin kaydirma ilerlemesi tek bir rAF dongusunde hesaplanir.
-let scrollFrame = 0;
-
-function syncScroll() {
-  scrollFrame = 0;
-  const y = window.scrollY;
-  header?.classList.toggle('scrolled', y > 20);
-  mobileAppointment?.classList.toggle('visible', y > 260);
-  if (!hero) return;
-  // Solma, hero'nun bir sonraki bolum tarafindan ortulme hiziyla ayni tempoda ilerler.
-  const span = Math.max(1, hero.offsetHeight * 0.95);
-  const progress = reducedMotion.matches ? 0 : Math.min(1, Math.max(0, y / span));
-  hero.style.setProperty('--hero-progress', progress.toFixed(4));
-  hero.classList.toggle('is-paused', progress > 0.98);
-}
-
-const requestScrollSync = () => {
-  if (!scrollFrame) scrollFrame = requestAnimationFrame(syncScroll);
-};
-
-syncScroll();
-window.addEventListener('scroll', requestScrollSync, { passive: true });
-window.addEventListener('resize', requestScrollSync);
+const syncHeader = () => header?.classList.toggle('scrolled', window.scrollY > 20);
+syncHeader();
+window.addEventListener('scroll', syncHeader, { passive: true });
 
 function setMenu(open) {
   mobileMenu?.classList.toggle('open', open);
@@ -60,6 +40,12 @@ if ('IntersectionObserver' in window) {
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
 
+  if (hero) {
+    new IntersectionObserver(([entry]) => {
+      mobileAppointment?.classList.toggle('visible', !entry.isIntersecting && window.scrollY > 100);
+      hero.classList.toggle('is-paused', !entry.isIntersecting);
+    }, { threshold: 0 }).observe(hero);
+  }
 } else {
   document.querySelectorAll('.reveal').forEach((element) => element.classList.add('is-visible'));
 }
@@ -119,7 +105,6 @@ heroStage?.addEventListener('pointerleave', () => {
 reducedMotion.addEventListener('change', () => {
   cancelAnimationFrame(pointerFrame);
   heroStage?.classList.remove('is-pointing');
-  syncScroll();
 });
 
 const lightbox = document.querySelector('#result-lightbox');
