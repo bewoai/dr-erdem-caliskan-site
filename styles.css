@@ -199,7 +199,7 @@ main { overflow: clip; }
 .doctor-visual:before { content: ""; position: absolute; z-index: 0; inset: 21px; border: 1px solid #ffffffb8; border-radius: 16px; pointer-events: none; }
 .doctor-visual:after { content: ""; position: absolute; z-index: 0; width: 76%; aspect-ratio: 1; left: 14%; top: 8%; border: 1px solid #ffffff8f; border-radius: 50%; pointer-events: none; }
 .doctor-visual img {
-  position: absolute; z-index: 2; left: 52%; bottom: -102px; width: auto; max-width: none; height: 670px;
+  position: absolute; z-index: 2; left: 52%; top: 16px; bottom: auto; width: auto; max-width: none; height: calc(100% + 92px);
   transform: translateX(-50%); object-fit: contain; object-position: center bottom;
   filter: drop-shadow(0 20px 28px #35606f2a);
 }
@@ -403,7 +403,7 @@ footer > a:hover { color: #fff; }
   .doctor-copy--heading { padding: 46px 24px 0 40px; }
   .doctor-copy--details { padding: 0 24px 42px 40px; }
   .doctor-copy h2 { font-size: clamp(48px, 5vw, 62px); }
-  .doctor-visual img { left: 50%; height: 630px; bottom: -98px; }
+  .doctor-visual img { left: 50%; top: 14px; bottom: auto; height: calc(100% + 84px); }
   .treatment-grid { grid-template-columns: 1fr 1fr; }
   .before-after .carousel { max-width: none; }
   .reviews { grid-template-columns: 1fr; gap: 30px; }
@@ -473,7 +473,7 @@ footer > a:hover { color: #fff; }
   .doctor-visual { height: auto; margin: 22px 0 0; border-radius: 0; }
   .doctor-visual:before { inset: 16px 20px 0; border-radius: 16px 16px 0 0; }
   .doctor-visual:after { width: 78%; left: 11%; top: 8%; }
-  .doctor-visual img { left: 50%; bottom: -112px; width: auto; height: 475px; }
+  .doctor-visual img { left: 50%; top: auto; bottom: -112px; width: auto; height: 475px; }
   .doctor-location { display: none; }
   .treatments, .reviews, .instagram, .contact { padding: 52px 22px; }
   .section-heading { display: block; margin-bottom: 27px; }
