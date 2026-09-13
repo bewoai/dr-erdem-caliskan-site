@@ -11,6 +11,12 @@ const focusTabs = [...document.querySelectorAll('.focus-tab')];
 const focusDescription = document.querySelector('.focus-description');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
+function syncHeroVisibility() {
+  hero?.classList.toggle('is-document-hidden', document.hidden);
+}
+document.addEventListener('visibilitychange', syncHeroVisibility);
+syncHeroVisibility();
+
 let lastScrollY = window.scrollY;
 let revealHeaderUntil = 0;
 
