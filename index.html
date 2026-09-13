@@ -25,7 +25,7 @@
     <meta name="twitter:description" content="Doğal ifadenizi koruyan, size özel medikal estetik. Serdivan / Sakarya." />
     <meta name="twitter:image" content="https://serdivanestetik.com/assets/share.jpg" />
 
-    <link rel="stylesheet" href="styles.css?v=16" />
+    <link rel="stylesheet" href="styles.css?v=17" />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -258,8 +258,18 @@
         <div class="lightbox-backdrop" data-lightbox-close></div>
         <div class="lightbox-dialog" role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
           <button class="lightbox-close" type="button" data-lightbox-close aria-label="Görseli kapat">×</button>
-          <div class="lightbox-visual"><img id="lightbox-image" alt="" /><video id="lightbox-video" controls playsinline preload="none" hidden></video></div>
+          <div class="lightbox-visual">
+            <img id="lightbox-image" alt="" />
+            <video id="lightbox-video" controls playsinline preload="none" hidden></video>
+            <button class="lightbox-nav lightbox-nav--prev" type="button" data-lightbox-prev aria-label="Önceki görsel" hidden>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14.5 5-7 7 7 7" /></svg>
+            </button>
+            <button class="lightbox-nav lightbox-nav--next" type="button" data-lightbox-next aria-label="Sonraki görsel" hidden>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 5 7 7-7 7" /></svg>
+            </button>
+          </div>
           <div class="lightbox-caption">
+            <p class="lightbox-count" id="lightbox-count" aria-live="polite" hidden></p>
             <p class="section-kicker" id="lightbox-kicker">ÖNCESİ / SONRASI</p>
             <h2 id="lightbox-title"></h2>
             <p id="lightbox-detail"></p>
@@ -390,6 +400,6 @@
     </footer>
 
     <a class="mobile-appointment" href="https://wa.me/905345662511" target="_blank" rel="noreferrer">Randevu oluştur <span>↗</span></a>
-    <script src="script.js?v=13"></script>
+    <script src="script.js?v=14"></script>
   </body>
 </html>

@@ -151,13 +151,46 @@ const lightboxTitle = document.querySelector('#lightbox-title');
 const lightboxDetail = document.querySelector('#lightbox-detail');
 const lightboxKicker = document.querySelector('#lightbox-kicker');
 const lightboxClose = lightbox?.querySelector('.lightbox-close');
+const lightboxVisual = lightbox?.querySelector('.lightbox-visual');
+const lightboxPrev = lightbox?.querySelector('[data-lightbox-prev]');
+const lightboxNext = lightbox?.querySelector('[data-lightbox-next]');
+const lightboxCount = document.querySelector('#lightbox-count');
 const lightboxTriggers = [...document.querySelectorAll('[data-lightbox-src], [data-lightbox-video]')];
 let lightboxLastFocus = null;
+let lightboxActiveTrigger = null;
+let lightboxActiveGroup = [];
 
-function openLightbox(trigger) {
-  if (!lightbox || !lightboxImage || !lightboxTitle || !lightboxDetail) return;
-  lightboxLastFocus = trigger;
+function getLightboxGroup(trigger) {
+  if (trigger.dataset.lightboxVideo) return [];
+  if (trigger.matches('.result-trigger')) return lightboxTriggers.filter((item) => item.matches('.result-trigger[data-lightbox-src]'));
+  if (trigger.matches('.clinic-trigger')) return lightboxTriggers.filter((item) => item.matches('.clinic-trigger[data-lightbox-src]'));
+  return [trigger];
+}
+
+function syncLightboxNavigation(trigger) {
+  lightboxActiveGroup = getLightboxGroup(trigger);
+  const index = lightboxActiveGroup.indexOf(trigger);
+  const canNavigate = index >= 0 && lightboxActiveGroup.length > 1;
+  if (lightboxPrev) lightboxPrev.hidden = !canNavigate;
+  if (lightboxNext) lightboxNext.hidden = !canNavigate;
+  if (lightboxCount) {
+    lightboxCount.hidden = !canNavigate;
+    lightboxCount.textContent = canNavigate ? `${index + 1} / ${lightboxActiveGroup.length}` : '';
+  }
+
+  if (canNavigate) {
+    const previous = lightboxActiveGroup[(index - 1 + lightboxActiveGroup.length) % lightboxActiveGroup.length];
+    const next = lightboxActiveGroup[(index + 1) % lightboxActiveGroup.length];
+    [previous, next].forEach((item) => {
+      const preload = new Image();
+      preload.src = item.dataset.lightboxSrc;
+    });
+  }
+}
+
+function setLightboxContent(trigger, direction = 0) {
   const videoSrc = trigger.dataset.lightboxVideo;
+  lightboxActiveTrigger = trigger;
   if (lightboxVideo) {
     lightboxVideo.hidden = !videoSrc;
     if (videoSrc) {
@@ -170,14 +203,34 @@ function openLightbox(trigger) {
   if (trigger.dataset.lightboxSrc) {
     lightboxImage.src = trigger.dataset.lightboxSrc;
     lightboxImage.alt = trigger.querySelector('img')?.alt || '';
+    if (direction && !reducedMotion.matches) {
+      lightboxImage.animate([
+        { opacity: .32, transform: `translate3d(${direction * 18}px, 0, 0)`, filter: 'blur(4px)' },
+        { opacity: 1, transform: 'translate3d(0, 0, 0)', filter: 'blur(0)' }
+      ], { duration: 260, easing: 'cubic-bezier(.16, 1, .3, 1)' });
+    }
   }
   lightboxTitle.textContent = trigger.dataset.lightboxTitle || '';
   lightboxDetail.textContent = trigger.dataset.lightboxDetail || '';
   if (lightboxKicker) lightboxKicker.textContent = trigger.dataset.lightboxKicker || 'ÖNCESİ / SONRASI';
+  syncLightboxNavigation(trigger);
+}
+
+function openLightbox(trigger) {
+  if (!lightbox || !lightboxImage || !lightboxTitle || !lightboxDetail) return;
+  lightboxLastFocus = trigger;
+  setLightboxContent(trigger);
   lightbox.hidden = false;
   document.body.classList.add('lightbox-open');
   requestAnimationFrame(() => lightbox.classList.add('is-open'));
   lightboxClose?.focus();
+}
+
+function navigateLightbox(direction) {
+  if (!lightboxActiveTrigger || lightboxActiveGroup.length < 2) return;
+  const currentIndex = lightboxActiveGroup.indexOf(lightboxActiveTrigger);
+  const nextIndex = (currentIndex + direction + lightboxActiveGroup.length) % lightboxActiveGroup.length;
+  setLightboxContent(lightboxActiveGroup[nextIndex], direction);
 }
 
 function closeLightbox() {
@@ -199,10 +252,34 @@ lightboxTriggers.forEach((trigger) => trigger.addEventListener('click', () => op
 lightbox?.addEventListener('click', (event) => {
   if (event.target.closest('[data-lightbox-close]')) closeLightbox();
 });
+lightboxPrev?.addEventListener('click', () => navigateLightbox(-1));
+lightboxNext?.addEventListener('click', () => navigateLightbox(1));
 document.addEventListener('keydown', (event) => {
   if (!lightbox || lightbox.hidden) return;
   if (event.key === 'Escape') closeLightbox();
+  if (event.key === 'ArrowLeft') {
+    event.preventDefault();
+    navigateLightbox(-1);
+  }
+  if (event.key === 'ArrowRight') {
+    event.preventDefault();
+    navigateLightbox(1);
+  }
 });
+
+let lightboxSwipeStart = null;
+lightboxVisual?.addEventListener('pointerdown', (event) => {
+  if (event.pointerType !== 'touch' || event.target.closest('button') || lightboxActiveGroup.length < 2) return;
+  lightboxSwipeStart = { x: event.clientX, y: event.clientY };
+});
+lightboxVisual?.addEventListener('pointerup', (event) => {
+  if (!lightboxSwipeStart || event.pointerType !== 'touch') return;
+  const deltaX = event.clientX - lightboxSwipeStart.x;
+  const deltaY = event.clientY - lightboxSwipeStart.y;
+  lightboxSwipeStart = null;
+  if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY)) navigateLightbox(deltaX < 0 ? 1 : -1);
+});
+lightboxVisual?.addEventListener('pointercancel', () => { lightboxSwipeStart = null; });
 
 const scrollBehavior = () => (reducedMotion.matches ? 'auto' : 'smooth');
 

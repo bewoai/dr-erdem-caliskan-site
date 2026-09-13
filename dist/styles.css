@@ -275,11 +275,18 @@ main { overflow: clip; }
 .lightbox.is-open { opacity: 1; }
 .lightbox-backdrop { position: absolute; inset: 0; cursor: zoom-out; }
 .lightbox-dialog { position: relative; z-index: 1; width: min(1040px, 100%); max-height: calc(100vh - 56px); display: grid; grid-template-columns: minmax(0, 1fr) 258px; gap: 20px; align-items: center; }
-.lightbox-visual { max-height: calc(100vh - 56px); padding: 12px; display: grid; place-items: center; border: 1px solid #ffffff55; border-radius: 24px; background: #f6fafbd9; box-shadow: 0 30px 90px #10232e66, 0 0 70px #d7ecf24d; overflow: auto; }
+.lightbox-visual { position: relative; max-height: calc(100vh - 56px); padding: 12px; display: grid; place-items: center; border: 1px solid #ffffff55; border-radius: 24px; background: #f6fafbd9; box-shadow: 0 30px 90px #10232e66, 0 0 70px #d7ecf24d; overflow: hidden; touch-action: pan-y; }
 .lightbox-visual img { width: auto; max-width: 100%; max-height: calc(100vh - 82px); object-fit: contain; border-radius: 14px; }
 .lightbox-visual video { display: block; width: auto; max-width: 100%; max-height: calc(100vh - 82px); border-radius: 14px; background: #12232c; }
 #lightbox-image[hidden], #lightbox-video[hidden] { display: none; }
+.lightbox-nav { position: absolute; z-index: 3; top: 50%; width: 50px; height: 50px; padding: 0; display: grid; place-items: center; border: 1px solid #ffffffb8; border-radius: 50%; color: var(--navy); background: #fffffff0; box-shadow: 0 10px 30px #17364330; cursor: pointer; transform: translateY(-50%); transition: color .2s, background .2s, box-shadow .2s, transform .2s; }
+.lightbox-nav--prev { left: 24px; }
+.lightbox-nav--next { right: 24px; }
+.lightbox-nav svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.lightbox-nav:hover, .lightbox-nav:focus-visible { color: #fff; background: #315a6e; box-shadow: 0 12px 34px #17364348; transform: translateY(-50%) scale(1.05); }
+.lightbox-nav[hidden], .lightbox-count[hidden] { display: none; }
 .lightbox-caption { padding: 24px 4px; color: #fff; }
+.lightbox-count { margin-bottom: 12px; color: #cbe2e8; font-size: 13px; font-variant-numeric: tabular-nums; letter-spacing: .12em; }
 .lightbox-caption .section-kicker { margin-bottom: 14px; color: #cbe2e8; }
 .lightbox-caption h2 { font-size: clamp(32px, 4vw, 52px); }
 .lightbox-caption > p:last-child { margin-top: 14px; color: #d8e8ebd9; font-size: 15px; line-height: 1.6; }
@@ -505,7 +512,12 @@ footer > a:hover { color: #fff; }
   .lightbox-dialog { max-height: calc(100vh - 36px); display: flex; flex-direction: column; gap: 12px; align-items: stretch; }
   .lightbox-visual { max-height: calc(100vh - 150px); padding: 8px; border-radius: 18px; }
   .lightbox-visual img { max-height: calc(100vh - 166px); border-radius: 11px; }
+  .lightbox-nav { width: 44px; height: 44px; }
+  .lightbox-nav--prev { left: 14px; }
+  .lightbox-nav--next { right: 14px; }
+  .lightbox-nav svg { width: 20px; height: 20px; }
   .lightbox-caption { padding: 4px 2px 0; }
+  .lightbox-count { margin-bottom: 6px; font-size: 12px; }
   .lightbox-caption .section-kicker { margin-bottom: 8px; font-size: 8px; }
   .lightbox-caption h2 { font-size: 32px; }
   .lightbox-caption > p:last-child { margin-top: 7px; font-size: 12px; }
