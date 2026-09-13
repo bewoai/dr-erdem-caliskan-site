@@ -555,7 +555,7 @@ footer > a:hover { color: #fff; }
   .doctor-visual { order: 1; height: 300px; margin: 0; overflow: hidden; border-radius: 26px 26px 0 0; }
   .doctor-visual:before { inset: 18px 18px 0; border-radius: 20px 20px 0 0; }
   .doctor-visual:after { inset: 32px 32px 14px; border-radius: 14px 14px 0 0; }
-  .doctor-visual img { right: 2%; bottom: -72px; width: 90%; height: 390px; }
+  .doctor-visual img { inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; }
   .doctor-copy { order: 2; display: block; padding: 28px 25px 34px; }
   .doctor-label { margin-bottom: 17px; font-size: 9px; }
   .doctor-copy h2 { font-size: clamp(46px, 14vw, 62px); }
