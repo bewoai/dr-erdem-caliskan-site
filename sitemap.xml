@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://serdivanestetik.com/</loc>
+    <lastmod>2026-09-14</lastmod>
+    <image:image><image:loc>https://serdivanestetik.com/assets/share.jpg</image:loc></image:image>
+    <image:image><image:loc>https://serdivanestetik.com/assets/dr-erdem-caliskan-portrait-1.jpg</image:loc></image:image>
+    <image:image><image:loc>https://serdivanestetik.com/assets/dr-erdem-caliskan-portrait-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://serdivanestetik.com/assets/dr-erdem-caliskan-portrait-3.jpg</image:loc></image:image>
+    <image:image><image:loc>https://serdivanestetik.com/assets/clinic-waiting-room.jpg</image:loc></image:image>
+    <image:image><image:loc>https://serdivanestetik.com/assets/clinic-entry.jpg</image:loc></image:image>
+    <image:image><image:loc>https://serdivanestetik.com/assets/clinic-treatment-main.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://serdivanestetik.com/llms.txt</loc>
+    <lastmod>2026-09-14</lastmod>
+  </url>
+</urlset>
