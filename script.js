@@ -164,6 +164,7 @@ function getLightboxGroup(trigger) {
   if (trigger.dataset.lightboxVideo) return [];
   if (trigger.matches('.result-trigger')) return lightboxTriggers.filter((item) => item.matches('.result-trigger[data-lightbox-src]'));
   if (trigger.matches('.clinic-trigger')) return lightboxTriggers.filter((item) => item.matches('.clinic-trigger[data-lightbox-src]'));
+  if (trigger.matches('.doctor-photo-trigger')) return lightboxTriggers.filter((item) => item.matches('.doctor-photo-trigger[data-lightbox-src]'));
   return [trigger];
 }
 
@@ -280,6 +281,28 @@ lightboxVisual?.addEventListener('pointerup', (event) => {
   if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY)) navigateLightbox(deltaX < 0 ? 1 : -1);
 });
 lightboxVisual?.addEventListener('pointercancel', () => { lightboxSwipeStart = null; });
+
+const doctorGallery = document.querySelector('[data-doctor-gallery]');
+const doctorPhotos = [...(doctorGallery?.querySelectorAll('[data-doctor-photo]') || [])];
+const doctorPhotoSelectors = [...(doctorGallery?.querySelectorAll('[data-doctor-select]') || [])];
+
+function selectDoctorPhoto(index) {
+  doctorPhotos.forEach((photo, photoIndex) => {
+    const active = photoIndex === index;
+    photo.classList.toggle('is-active', active);
+    photo.setAttribute('aria-hidden', String(!active));
+    photo.tabIndex = active ? 0 : -1;
+  });
+  doctorPhotoSelectors.forEach((selector, selectorIndex) => {
+    const active = selectorIndex === index;
+    selector.classList.toggle('is-active', active);
+    selector.setAttribute('aria-pressed', String(active));
+  });
+}
+
+doctorPhotoSelectors.forEach((selector, index) => {
+  selector.addEventListener('click', () => selectDoctorPhoto(index));
+});
 
 const scrollBehavior = () => (reducedMotion.matches ? 'auto' : 'smooth');
 

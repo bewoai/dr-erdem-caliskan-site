@@ -195,15 +195,19 @@ main { overflow: clip; }
 .doctor-actions .button { min-height: 52px; padding: 13px 24px; }
 .doctor-link { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14px; font-weight: 500; }
 .doctor-link span { margin-left: 8px; }
-.doctor-visual { grid-area: visual; position: relative; min-width: 0; margin: 24px 24px 24px 0; overflow: hidden; isolation: isolate; border-radius: 22px; background: radial-gradient(ellipse at 52% 22%, #fff 0, #e5f0f3 44%, #abcbd5 100%); }
-.doctor-visual:before { content: ""; position: absolute; z-index: 0; inset: 21px; border: 1px solid #ffffffb8; border-radius: 16px; pointer-events: none; }
-.doctor-visual:after { content: ""; position: absolute; z-index: 0; width: 76%; aspect-ratio: 1; left: 14%; top: 8%; border: 1px solid #ffffff8f; border-radius: 50%; pointer-events: none; }
-.doctor-visual img {
-  position: absolute; z-index: 2; left: 52%; top: 16px; bottom: auto; width: auto; max-width: none; height: calc(100% + 92px);
-  transform: translateX(-50%); object-fit: contain; object-position: center bottom;
-  filter: drop-shadow(0 20px 28px #35606f2a);
-}
-.doctor-location { position: absolute; z-index: 3; right: 34px; bottom: 28px; display: flex; align-items: center; gap: 9px; color: #3d6374; font-family: var(--serif); font-size: 15px; }
+.doctor-visual { grid-area: visual; position: relative; min-width: 0; margin: 24px 24px 24px 0; display: grid; grid-template-rows: minmax(0, 1fr) auto; isolation: isolate; }
+.doctor-photo-stage { position: relative; z-index: 1; min-height: 0; }
+.doctor-photo-trigger { --portrait: none; position: absolute; inset: 0; width: 100%; height: 100%; padding: 16px 20px 22px; display: flex; align-items: center; justify-content: center; border: 0; background: transparent; cursor: zoom-in; opacity: 0; visibility: hidden; transform: translateX(12px); transition: opacity .32s cubic-bezier(.16, 1, .3, 1), transform .32s cubic-bezier(.16, 1, .3, 1), visibility .32s; }
+.doctor-photo-trigger.is-active { opacity: 1; visibility: visible; transform: none; }
+.doctor-photo-trigger > img { position: relative; z-index: 1; width: auto; height: auto; max-width: 100%; max-height: 100%; border-radius: 18px; box-shadow: 0 16px 36px #27495a22, 0 3px 10px #27495a12; }
+.doctor-photo-trigger .zoom-hint { left: 50%; right: auto; bottom: 36px; translate: -50% 0; white-space: nowrap; }
+.doctor-photo-trigger:hover .zoom-hint, .doctor-photo-trigger:focus-visible .zoom-hint { opacity: 1; transform: none; }
+.doctor-photo-switcher { position: relative; z-index: 3; min-height: 64px; padding: 4px 18px 6px; display: flex; justify-content: center; gap: 10px; }
+.doctor-photo-switcher button { width: 46px; height: 46px; padding: 0; overflow: hidden; border: 2px solid transparent; border-radius: 12px; background: #dce8eb; box-shadow: 0 4px 12px #27495a1a; cursor: pointer; opacity: .62; transition: opacity .2s, border-color .2s, transform .2s; }
+.doctor-photo-switcher button:hover, .doctor-photo-switcher button:focus-visible { opacity: 1; transform: translateY(-2px); }
+.doctor-photo-switcher button.is-active { border-color: #537f90; opacity: 1; }
+.doctor-photo-switcher img { width: 100%; height: 100%; object-fit: cover; object-position: center 24%; }
+.doctor-location { position: absolute; z-index: 4; left: 50%; top: 30px; translate: -50% 0; white-space: nowrap; display: flex; align-items: center; gap: 9px; padding: 8px 11px; border-radius: 999px; color: #3d6374; background: #f7fbfbe8; box-shadow: 0 7px 22px #274b5a1c; font-family: var(--serif); font-size: 14px; }
 .doctor-location span { color: #6f909e; font-family: var(--sans); font-size: 9px; font-weight: 600; letter-spacing: .18em; }
 
 .treatments { padding: 68px 8vw 80px; background: radial-gradient(ellipse at 1% 80%, #d8e9ed, transparent 50%), radial-gradient(ellipse at 99% 15%, #efe2dd8c, transparent 48%), #f5f8f9; }
@@ -409,7 +413,6 @@ footer > a:hover { color: #fff; }
   .doctor-copy--heading { padding: 46px 24px 0 40px; }
   .doctor-copy--details { padding: 0 24px 42px 40px; }
   .doctor-copy h2 { font-size: clamp(48px, 5vw, 62px); }
-  .doctor-visual img { left: 50%; top: 14px; bottom: auto; height: calc(100% + 84px); }
   .treatment-grid { grid-template-columns: 1fr 1fr; }
   .before-after .carousel { max-width: none; }
   .reviews { grid-template-columns: 1fr; gap: 30px; }
@@ -465,7 +468,7 @@ footer > a:hover { color: #fff; }
   h2 { font-size: clamp(39px, 10vw, 53px); }
   .section-kicker { font-size: 11px; }
   .doctor-intro { padding: 36px 16px 52px; }
-  .doctor-card { min-height: 0; grid-template-columns: 1fr; grid-template-areas: "heading" "visual" "details"; grid-template-rows: auto 330px auto; border-radius: 24px; }
+  .doctor-card { min-height: 0; grid-template-columns: 1fr; grid-template-areas: "heading" "visual" "details"; grid-template-rows: auto auto auto; border-radius: 24px; }
   .doctor-copy--heading { padding: 30px 24px 0; }
   .doctor-copy--details { align-self: auto; padding: 27px 24px 32px; }
   .doctor-copy h2 { font-size: clamp(45px, 13.5vw, 58px); line-height: .94; }
@@ -476,11 +479,14 @@ footer > a:hover { color: #fff; }
   .doctor-actions { margin-top: 21px; gap: 15px; }
   .doctor-actions .button { font-size: 14px; padding: 15px 22px; min-height: 54px; gap: 18px; }
   .doctor-link { font-size: 13.5px; }
-  .doctor-visual { height: auto; margin: 22px 0 0; border-radius: 0; }
-  .doctor-visual:before { inset: 16px 20px 0; border-radius: 16px 16px 0 0; }
-  .doctor-visual:after { width: 78%; left: 11%; top: 8%; }
-  .doctor-visual img { left: 50%; top: auto; bottom: -112px; width: auto; height: 475px; }
-  .doctor-location { display: none; }
+  .doctor-visual { width: calc(100% - 28px); height: auto; margin: 22px 14px 0; }
+  .doctor-photo-stage { aspect-ratio: 2 / 3; }
+  .doctor-photo-trigger { padding: 6px 8px 14px; }
+  .doctor-photo-trigger > img { border-radius: 16px; }
+  .doctor-photo-trigger .zoom-hint { bottom: 26px; }
+  .doctor-photo-switcher { min-height: 60px; padding: 4px 12px 8px; gap: 8px; }
+  .doctor-photo-switcher button { width: 46px; height: 46px; }
+  .doctor-location { top: 18px; padding: 7px 10px; font-size: 13px; }
   .treatments, .reviews, .instagram, .contact { padding: 52px 22px; }
   .section-heading { display: block; margin-bottom: 27px; }
   .section-heading > p { margin-top: 17px; max-width: 320px; font-size: 16px; }
