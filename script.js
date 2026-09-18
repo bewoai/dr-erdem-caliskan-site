@@ -23,32 +23,54 @@ let revealHeaderUntil = 0;
 function syncHeader() {
   if (!header) return;
   const y = Math.max(0, window.scrollY);
-  const delta = y - lastScrollY;
   header.classList.toggle('scrolled', y > 20);
-
-  // Asagi kaydirirken baslik cekilir, yukari kaydirirken hemen geri gelir.
-  // Menu acikken, sayfa basindayken ve bir bag baglantisina tiklandiktan hemen
-  // sonra baslik her zaman gorunur kalir.
-  const menuOpen = mobileMenu?.classList.contains('open');
-  if (menuOpen || y < 220 || Date.now() < revealHeaderUntil) {
-    header.classList.remove('hidden');
-  } else if (delta > 4) {
-    header.classList.add('hidden');
-  } else if (delta < -4) {
-    header.classList.remove('hidden');
-  }
-
-  if (Math.abs(delta) > 1) lastScrollY = y;
+  
+  // Menu gizleme animasyonu musteri talebi dogrultusunda kapatildi.
+  // Menu artik her zaman ustte gorulebilir kalacak.
+  header.classList.remove('hidden');
 }
 
 syncHeader();
 window.addEventListener('scroll', syncHeader, { passive: true });
 
 // Sayfa ici baglantilar asagi kaydirdigi icin baslik kisa sure gorunur tutulur.
-document.querySelectorAll('a[href^="#"]').forEach((link) => {
-  link.addEventListener('click', () => {
-    revealHeaderUntil = Date.now() + 900;
-    header?.classList.remove('hidden');
+
+
+// Eğer sayfa dışarıdan bir hash ile açıldıysa menüyü hemen gizleme (1 saniye bekle)
+if (window.location.hash) {
+  revealHeaderUntil = Date.now() + 1500;
+}
+
+document.querySelectorAll('a[href*="#"], a[href="/"]').forEach((link) => {
+  link.addEventListener('click', (e) => {
+    const href = link.getAttribute('href');
+    
+    // "Ana Sayfa" linkine (href="/") tıklandığında, anasayfadaysak yukarı yumuşakça kaydır
+    if (href === '/') {
+      const isHomePage = window.location.pathname === '/' || window.location.pathname.endsWith('index.html');
+      if (isHomePage) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: reducedMotion.matches ? 'auto' : 'smooth' });
+      }
+      return;
+    }
+
+    // Sadece /# ile başlayan bölümlere tıklamayı yakala
+    if (href && href.startsWith('/#')) {
+      const id = href.substring(1); // "#gorusler"
+      const target = document.querySelector(id);
+      
+      // Eğer hedef bu sayfada varsa (yani zaten anasayfadaysak)
+      // Sayfayı tamamen yenilemeden yavaşça kaydır.
+      if (target) {
+        e.preventDefault();
+        
+        // Linki tarayıcı geçmişine de sayfa yenilenmeden ekleyelim
+        history.pushState(null, '', href);
+
+        target.scrollIntoView({ behavior: reducedMotion.matches ? 'auto' : 'smooth' });
+      }
+    }
   });
 });
 

@@ -12,7 +12,7 @@
   --sans: "Helvetica Neue", Arial, sans-serif;
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+html { scroll-behavior: smooth;  }
 body { margin: 0; color: var(--ink); background: var(--paper); font-family: var(--sans); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 a { color: inherit; text-decoration: none; }
 img { display: block; width: 100%; }
@@ -440,7 +440,7 @@ footer > a:hover { color: #fff; }
   .contact { min-height: 0; }
 }
 @media (max-width: 740px) {
-  html { scroll-padding-top: 82px; }
+  html {  }
   .site-header { height: 86px; padding-inline: 18px; gap: 10px; }
   .brand { gap: 11px; }
   .brand img { width: 48px; height: 48px; }
@@ -720,7 +720,7 @@ footer > a:hover { color: #fff; }
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
 }
 .certificate-card {
-  padding: 24px; display: flex; flex-direction: column; gap: 12px;
+  padding: 0; display: flex; flex-direction: column; overflow: hidden;
   border: 1px solid #fff; border-radius: 20px;
   background: linear-gradient(135deg, #ffffffb0, #edf5f780);
   box-shadow: 0 5px 18px #67889508;
@@ -728,8 +728,18 @@ footer > a:hover { color: #fff; }
 }
 .certificate-card:hover { transform: translateY(-3px); border-color: #cfe2e8; box-shadow: 0 14px 32px #608f9e12; }
 .certificate-card--placeholder {
-  border-style: dashed; border-color: var(--line);
+  border-style: dashed; border-color: var(--line); padding: 24px; gap: 12px;
   background: transparent; box-shadow: none;
+}
+.cert-trigger {
+  display: block; width: 100%; position: relative; border: none; padding: 0; cursor: pointer;
+}
+.cert-trigger img {
+  display: block; width: 100%; aspect-ratio: 1.414 / 1; object-fit: cover; object-position: top;
+  border-bottom: 1px solid var(--line);
+}
+.certificate-body {
+  padding: 20px; display: flex; flex-direction: column; gap: 8px; flex-grow: 1; text-align: left;
 }
 .cert-icon {
   width: 46px; height: 46px; flex: none;
@@ -739,8 +749,8 @@ footer > a:hover { color: #fff; }
 }
 .cert-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .cert-title {
-  font-family: var(--serif); font-size: 19px; font-weight: 400;
-  color: var(--navy); line-height: 1.25;
+  font-family: var(--serif); font-size: 18px; font-weight: 400;
+  color: var(--navy); line-height: 1.25; margin-bottom: 2px;
 }
 .cert-issuer { color: var(--muted); font-size: 13.5px; line-height: 1.55; }
 .cert-tag {
@@ -748,8 +758,9 @@ footer > a:hover { color: #fff; }
   padding: 4px 10px; border-radius: 99px;
   background: #d8eef3; color: var(--navy);
   font-size: 11px; font-weight: 600; letter-spacing: .06em; width: fit-content;
+  margin-bottom: 4px;
 }
-.cert-tag--pending { background: var(--line); color: var(--muted); }
+.cert-tag--pending { background: var(--line); color: var(--muted); margin-bottom: 0; }
 
 /* ── Doctor Values / Approach ── */
 .doctor-values-section {
@@ -831,7 +842,28 @@ footer > a:hover { color: #fff; }
 }
 .gallery-card:hover { transform: translateY(-5px); box-shadow: 0 22px 48px #66869126; }
 .gallery-card.is-hidden { display: none; }
-.gallery-card .result-trigger img { aspect-ratio: 3 / 4; object-fit: cover; object-position: center; }
+.gallery-card .result-trigger {
+  display: block;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.gallery-card .result-trigger img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1.32;
+  object-fit: cover; /* veya contain, ama cover ile kutuyu tam doldurması daha şık olabilir, önce contain deneyelim */
+  object-fit: contain;
+  background-color: #f5f8f9;
+}
+.gallery-placeholder-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1.32;
+  background: linear-gradient(145deg, #eef4f5, #f3eee8);
+  display: flex; align-items: center; justify-content: center;
+}
 .gallery-placeholder-img {
   aspect-ratio: 3 / 4;
   background: linear-gradient(145deg, #eef4f5, #f3eee8);
@@ -890,4 +922,41 @@ footer > a:hover { color: #fff; }
 }
 @media (max-width: 440px) {
   .gallery-grid { grid-template-columns: 1fr; }
+}
+
+
+/* ── Menü Dropdown ── */
+.nav-dropdown {
+  position: relative;
+  display: inline-flex;
+}
+.nav-dropbtn {
+  display: inline-flex; align-items: center; min-height: 46px; padding: 0 17px; 
+  border: 1px solid transparent; border-radius: 99px; 
+  color: #5f7783; font-size: 14.5px; font-weight: 500; background: transparent;
+  cursor: pointer; transition: color .2s, background .2s, box-shadow .2s, min-height .35s ease, padding .35s ease, font-size .35s ease;
+}
+.site-header.scrolled .nav-dropbtn { min-height: 36px; padding: 0 14px; font-size: 13px; }
+.desktop-nav .nav-dropbtn:hover, .desktop-nav .nav-dropdown:hover .nav-dropbtn { color: #294b62; background: #ffffffb0; }
+
+.nav-dropdown::after { content: ''; position: absolute; left: 0; right: 0; top: 100%; height: 16px; z-index: 10; }
+.nav-dropdown-content {
+  position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%) translateY(10px);
+  background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  min-width: 175px; border-radius: 16px; border: 1px solid #ffffffd9;
+  box-shadow: 0 12px 32px #294b6214, 0 4px 14px #294b620a;
+  display: flex; flex-direction: column; padding: 6px; gap: 2px;
+  visibility: hidden; opacity: 0; pointer-events: none; transition: transform .25s ease, opacity .25s ease, visibility .25s;
+  z-index: 1000;
+}
+.nav-dropdown:hover .nav-dropdown-content {
+  visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto;
+}
+.nav-dropdown-content a {
+  border: none !important; border-radius: 10px !important; min-height: 40px !important; 
+  justify-content: flex-start !important; font-size: 13.5px !important; padding: 0 14px !important;
+  color: var(--ink) !important; background: transparent !important; box-shadow: none !important;
+}
+.nav-dropdown-content a:hover {
+  background: #f1f5f7 !important; color: var(--blue) !important;
 }
