@@ -162,6 +162,10 @@ let lightboxActiveGroup = [];
 
 function getLightboxGroup(trigger) {
   if (trigger.dataset.lightboxVideo) return [];
+  // Galeri sayfası filtresi: eğer bir item gizlenmişse lightbox grubuna dahil etmez
+  if (trigger.matches('.gallery-card:not(.is-hidden) .result-trigger')) {
+    return [...document.querySelectorAll('.gallery-card:not(.is-hidden) .result-trigger[data-lightbox-src]')];
+  }
   if (trigger.matches('.result-trigger')) return lightboxTriggers.filter((item) => item.matches('.result-trigger[data-lightbox-src]'));
   if (trigger.matches('.clinic-trigger')) return lightboxTriggers.filter((item) => item.matches('.clinic-trigger[data-lightbox-src]'));
   if (trigger.matches('.doctor-photo-trigger')) return lightboxTriggers.filter((item) => item.matches('.doctor-photo-trigger[data-lightbox-src]'));
@@ -394,7 +398,18 @@ document.querySelectorAll('[data-carousel]').forEach((root) => {
 
 const navLinks = [...document.querySelectorAll('.desktop-nav a')];
 const navSections = navLinks
-  .map((link) => document.querySelector(link.getAttribute('href')))
+  .map((link) => {
+    // URL'de bir id barindirip barindirmadigini kontrol eder href="//#section" veya href="/#section"
+    const href = link.getAttribute('href');
+    if (!href) return null;
+    if (href.includes('#')) {
+      const id = href.split('#')[1];
+      if (id) {
+         try { return document.querySelector('#' + id); } catch(e) { return null; }
+      }
+    }
+    return null;
+  })
   .filter(Boolean);
 
 if ('IntersectionObserver' in window && navSections.length) {
@@ -411,3 +426,57 @@ if ('IntersectionObserver' in window && navSections.length) {
   }, { rootMargin: '-50% 0px -49% 0px', threshold: 0 });
   navSections.forEach((section) => sectionObserver.observe(section));
 }
+
+/* ====================================================
+   Galeri Filtreleme Sistemi
+   ==================================================== */
+function initGalleryFilter() {
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const galleryCards = document.querySelectorAll('.gallery-card');
+  const galleryCount = document.querySelector('.gallery-count');
+  
+  if (!filterButtons.length || !galleryCards.length) return;
+
+  function setFilter(category) {
+    // Butonları güncelle
+    filterButtons.forEach(btn => {
+      const isSelected = btn.dataset.filter === category;
+      btn.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+    });
+
+    // Kartları filtrele
+    let totalVisible = 0;
+    galleryCards.forEach(card => {
+      const cardCategory = card.dataset.category;
+      if (category === 'tumu' || cardCategory === category) {
+        card.classList.remove('is-hidden');
+        totalVisible++;
+      } else {
+        card.classList.add('is-hidden');
+      }
+    });
+
+    // Sayacı güncelle
+    if (galleryCount) {
+      galleryCount.textContent = totalVisible + ' Vaka';
+    }
+
+    // URL'ye hash ekle
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, '#' + category);
+    }
+  }
+
+  // İlk yüklemede hash'e göre filtrele, yoksa tümü
+  const initialCategory = window.location.hash.substring(1) || 'tumu';
+  let hasMatch = false;
+  
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => setFilter(btn.dataset.filter));
+    if (btn.dataset.filter === initialCategory) hasMatch = true;
+  });
+
+  setFilter(hasMatch ? initialCategory : 'tumu');
+}
+
+initGalleryFilter();

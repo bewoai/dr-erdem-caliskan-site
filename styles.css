@@ -589,3 +589,305 @@ footer > a:hover { color: #fff; }
   .js-ready .reveal { opacity: 1; transform: none; }
   .trace-path { stroke-dashoffset: 0; }
 }
+
+/* ====================================================
+   v23 — Alt sayfa bileşenleri: subpage-hero, biyografi,
+   timeline, sertifikalar, değerler, galeri filtresi, galeri
+   ==================================================== */
+
+/* ── Alt Sayfa Hero ── */
+.subpage-hero {
+  padding: 132px 8vw 64px;
+  background:
+    radial-gradient(ellipse at 12% 48%, #d5e6ec, transparent 50%),
+    radial-gradient(ellipse at 90% 20%, #f2ded5, transparent 47%), #f5f8f9;
+}
+.subpage-hero-inner {
+  max-width: 1180px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr minmax(0, .82fr);
+  gap: 5vw; align-items: center;
+}
+.subpage-hero-copy h1 { font-size: clamp(50px, 5.2vw, 76px); }
+.subpage-hero-copy .doctor-role { font-size: 16px; margin-top: 18px; max-width: 380px; }
+.subpage-hero-copy .subpage-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 18px; margin-top: 26px; }
+.subpage-hero-portrait img {
+  border-radius: 24px; width: 100%; height: auto;
+  aspect-ratio: 2 / 3; object-fit: cover; object-position: center 15%;
+  box-shadow: 0 24px 60px #294b621c;
+}
+.subpage-hero--centered { text-align: center; padding-bottom: 52px; }
+.subpage-hero--centered .subpage-hero-inner { grid-template-columns: 1fr; max-width: 720px; }
+.subpage-hero--centered h1 { font-size: clamp(46px, 5vw, 72px); }
+
+/* ── Legal Notice ── */
+.legal-notice {
+  display: flex; gap: 14px;
+  max-width: 680px; margin: 26px auto 0;
+  padding: 16px 20px;
+  border: 1px solid rgba(54, 91, 110, .15); border-radius: 14px;
+  background: rgba(255, 255, 255, .65);
+  color: var(--muted); font-size: 13px; line-height: 1.65;
+  text-align: left;
+}
+.legal-notice-icon { flex: none; margin-top: 1px; color: var(--blue); font-size: 16px; }
+
+/* ── Doctor Bio ── */
+.doctor-bio-section {
+  padding: 76px 8vw;
+  background: radial-gradient(ellipse at 94% 70%, #b8dce146, transparent 44%), #f8fafb;
+}
+.doctor-bio-inner {
+  max-width: 1180px; margin: 0 auto;
+  display: grid; grid-template-columns: .58fr .42fr;
+  gap: 8vw; align-items: start;
+}
+.doctor-bio-inner h2 { font-size: clamp(40px, 4vw, 58px); margin-bottom: 24px; }
+.doctor-bio-inner p { color: var(--muted); font-size: 17px; line-height: 1.75; }
+.doctor-bio-inner p + p { margin-top: 18px; }
+.doctor-bio-quote {
+  padding: 28px 32px;
+  border-left: 3px solid var(--blue);
+  border-radius: 0 16px 16px 0;
+  background: linear-gradient(120deg, #ffffffd0, #eef5f740);
+  box-shadow: 0 8px 28px #294b6209;
+  margin-top: 32px;
+}
+.doctor-bio-quote blockquote {
+  font-family: var(--serif); font-size: clamp(26px, 2.6vw, 36px);
+  line-height: 1.12; letter-spacing: -.02em; color: var(--navy);
+}
+.doctor-bio-quote blockquote em { color: var(--blue); }
+.doctor-bio-quote cite {
+  display: block; margin-top: 16px;
+  color: var(--muted); font-size: 12.5px; font-style: normal; letter-spacing: .06em;
+}
+.doctor-bio-aside { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
+.stat-card {
+  padding: 22px 24px;
+  border: 1px solid #fff; border-radius: 18px;
+  background: linear-gradient(135deg, #ffffffb0, #e9f3f680);
+  box-shadow: 0 5px 16px #294b6209;
+}
+.stat-card-num {
+  font-family: var(--serif); font-size: 44px; line-height: 1;
+  letter-spacing: -.03em; color: var(--navy);
+}
+.stat-card-num em { color: var(--blue); font-style: normal; }
+.stat-card-label { margin-top: 6px; color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+/* ── Credentials / Education Timeline ── */
+.credentials-section {
+  padding: 76px 8vw;
+  background: radial-gradient(ellipse at 8% 20%, #dcebf1a6, transparent 52%), #f5f8f9;
+}
+.credentials-inner { max-width: 1180px; margin: 0 auto; }
+.credentials-inner .section-heading { margin-bottom: 42px; }
+.credentials-layout {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8vw; align-items: start;
+}
+.credentials-timeline {
+  position: relative;
+  display: flex; flex-direction: column;
+  padding-left: 28px;
+  border-left: 2px solid var(--line);
+}
+.timeline-item { position: relative; padding: 0 0 28px 28px; }
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-dot {
+  position: absolute; left: -35px; top: 7px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--blue); border: 3px solid #f5f8f9;
+  box-shadow: 0 0 0 2px var(--blue);
+}
+.timeline-year {
+  font-size: 10.5px; font-weight: 700; letter-spacing: .14em;
+  color: var(--blue); margin-bottom: 7px;
+}
+.timeline-title {
+  font-family: var(--serif); font-size: clamp(19px, 1.7vw, 24px);
+  font-weight: 400; color: var(--navy); line-height: 1.2; margin-bottom: 5px;
+}
+.timeline-detail { color: var(--muted); font-size: 14.5px; line-height: 1.6; }
+
+/* ── Certificates Grid ── */
+.certificates-section {
+  padding: 76px 8vw;
+  background: radial-gradient(ellipse at 95% 60%, #efe2dd8c, transparent 48%), #f8fafb;
+}
+.certificates-inner { max-width: 1180px; margin: 0 auto; }
+.certificates-inner .section-heading { margin-bottom: 38px; }
+.certificates-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+}
+.certificate-card {
+  padding: 24px; display: flex; flex-direction: column; gap: 12px;
+  border: 1px solid #fff; border-radius: 20px;
+  background: linear-gradient(135deg, #ffffffb0, #edf5f780);
+  box-shadow: 0 5px 18px #67889508;
+  transition: transform .25s, box-shadow .25s, border-color .25s;
+}
+.certificate-card:hover { transform: translateY(-3px); border-color: #cfe2e8; box-shadow: 0 14px 32px #608f9e12; }
+.certificate-card--placeholder {
+  border-style: dashed; border-color: var(--line);
+  background: transparent; box-shadow: none;
+}
+.cert-icon {
+  width: 46px; height: 46px; flex: none;
+  display: grid; place-items: center; border-radius: 13px;
+  background: linear-gradient(140deg, #eef6f8, #d8ebf0);
+  border: 1px solid #dbe9ee; color: var(--blue);
+}
+.cert-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.cert-title {
+  font-family: var(--serif); font-size: 19px; font-weight: 400;
+  color: var(--navy); line-height: 1.25;
+}
+.cert-issuer { color: var(--muted); font-size: 13.5px; line-height: 1.55; }
+.cert-tag {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 10px; border-radius: 99px;
+  background: #d8eef3; color: var(--navy);
+  font-size: 11px; font-weight: 600; letter-spacing: .06em; width: fit-content;
+}
+.cert-tag--pending { background: var(--line); color: var(--muted); }
+
+/* ── Doctor Values / Approach ── */
+.doctor-values-section {
+  padding: 76px 8vw;
+  background: radial-gradient(ellipse at 50% 100%, #d5e6ec44, transparent 60%), #f5f8f9;
+}
+.doctor-values-inner { max-width: 1180px; margin: 0 auto; }
+.doctor-values-inner .section-heading { margin-bottom: 38px; }
+.values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.value-card {
+  padding: 28px 26px;
+  border: 1px solid #fff; border-radius: 22px;
+  background: linear-gradient(140deg, #ffffffc4, #ffffff6b);
+  box-shadow: 0 5px 18px #67889507;
+}
+.value-number {
+  font-size: 10.5px; font-weight: 700; letter-spacing: .16em;
+  color: #8ba2ac; margin-bottom: 16px;
+}
+.value-icon {
+  width: 46px; height: 46px;
+  display: grid; place-items: center;
+  border: 1px solid #dbe9ee; border-radius: 13px;
+  background: linear-gradient(140deg, #fffffff0, #eef6f8b8);
+  box-shadow: 0 3px 10px #5f8b9a12; color: var(--blue); margin-bottom: 18px;
+}
+.value-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.value-title {
+  font-family: var(--serif); font-size: clamp(22px, 1.9vw, 28px);
+  font-weight: 400; color: var(--navy); line-height: 1.15; margin-bottom: 12px;
+}
+.value-title em { color: var(--blue); }
+.value-desc { color: var(--muted); font-size: 15.5px; line-height: 1.65; }
+
+/* ── Gallery Filter Bar ── */
+.gallery-filter-outer {
+  padding: 0 8vw 36px;
+  background: radial-gradient(ellipse at 4% 80%, #d8e9ed, transparent 52%), #f8fafb;
+}
+.gallery-filter-bar {
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+  padding: 16px 20px; border-radius: 18px;
+  background: linear-gradient(110deg, #ffffffb8, #e9f1f2ad);
+  border: 1px solid #ffffffd9;
+  box-shadow: 0 8px 32px #6a8c9b12;
+  backdrop-filter: blur(16px);
+}
+.gallery-count { margin-left: auto; color: var(--muted); font-size: 13px; white-space: nowrap; }
+.filter-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 18px; min-height: 40px;
+  border: 1px solid transparent; border-radius: 99px;
+  background: transparent; color: #6c818c;
+  font-size: 14px; font-weight: 500; cursor: pointer; white-space: nowrap;
+  transition: color .2s, background .2s, border-color .2s, box-shadow .2s;
+}
+.filter-btn:hover { color: var(--navy); background: #ffffffb0; }
+.filter-btn[aria-pressed="true"] {
+  color: var(--white); border-color: transparent;
+  background: linear-gradient(115deg, #264a60, #507e8c);
+  box-shadow: 0 6px 18px #294b621c;
+}
+
+/* ── Gallery Grid ── */
+.gallery-section {
+  padding: 0 8vw 80px;
+  background: radial-gradient(ellipse at 4% 80%, #d8e9ed, transparent 52%), #f8fafb;
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+.gallery-card {
+  position: relative; margin: 0; overflow: hidden;
+  border: 1px solid #fff; border-radius: 22px;
+  background: #fff; box-shadow: 0 16px 42px #66869118, 0 0 42px #d7e3e329;
+  transition: transform .3s, box-shadow .3s, opacity .25s;
+}
+.gallery-card:hover { transform: translateY(-5px); box-shadow: 0 22px 48px #66869126; }
+.gallery-card.is-hidden { display: none; }
+.gallery-card .result-trigger img { aspect-ratio: 3 / 4; object-fit: cover; object-position: center; }
+.gallery-placeholder-img {
+  aspect-ratio: 3 / 4;
+  background: linear-gradient(145deg, #eef4f5, #f3eee8);
+  display: flex; align-items: center; justify-content: center;
+}
+.gallery-placeholder-img span {
+  color: #a5b8c0; font-size: 12px; letter-spacing: .12em; font-weight: 500;
+}
+.gallery-card figcaption {
+  min-height: 84px; padding: 14px 18px 16px;
+  display: flex; flex-direction: column; gap: 4px;
+  background: linear-gradient(135deg, #ffffff, #f1f6f7);
+}
+.gallery-card-badge {
+  display: inline-flex; align-items: center;
+  padding: 3px 10px; border-radius: 99px;
+  background: #d8eef3; color: var(--navy);
+  font-size: 10.5px; font-weight: 600; letter-spacing: .06em;
+  width: fit-content; margin-bottom: 4px;
+}
+.gallery-card figcaption b {
+  font-family: var(--serif); font-size: 19px;
+  font-weight: 400; line-height: 1.1; color: var(--navy);
+}
+.gallery-card figcaption small { color: var(--muted); font-size: 13px; line-height: 1.45; }
+.gallery-empty {
+  grid-column: 1 / -1; text-align: center;
+  padding: 48px 24px; color: var(--muted); font-size: 17px;
+}
+
+/* ── Responsive: Yeni Bileşenler ── */
+@media (max-width: 1100px) {
+  .certificates-grid { grid-template-columns: repeat(2, 1fr); }
+  .credentials-layout { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 900px) {
+  .subpage-hero-inner { grid-template-columns: 1fr; gap: 32px; }
+  .subpage-hero-portrait { max-width: 380px; }
+  .doctor-bio-inner { grid-template-columns: 1fr; gap: 36px; }
+  .values-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 740px) {
+  .subpage-hero { padding: 112px 22px 48px; }
+  .subpage-hero-copy h1 { font-size: clamp(40px, 10.5vw, 58px); }
+  .doctor-bio-section, .credentials-section,
+  .certificates-section, .doctor-values-section,
+  .gallery-section { padding-inline: 22px; }
+  .gallery-filter-outer { padding-inline: 22px; }
+  .certificates-grid { grid-template-columns: 1fr; }
+  .values-grid { grid-template-columns: 1fr; gap: 10px; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .gallery-card { border-radius: 16px; }
+  .value-card { padding: 22px 20px; }
+  .doctor-bio-quote { padding: 22px 24px; }
+  .doctor-bio-quote blockquote { font-size: clamp(24px, 6.5vw, 32px); }
+}
+@media (max-width: 440px) {
+  .gallery-grid { grid-template-columns: 1fr; }
+}

@@ -60,12 +60,12 @@ Hangi uygulamanın uygun olduğu hekim muayenesinde belirlenir. Sonuçlar kişid
 - **Sakarya'da botoks nerede yaptırılır?** Dr. Erdem Çalışkan Medikal Estetik, Serdivan / Sakarya'da her gün hizmet vermektedir.
 - **Serdivan'da estetik klinik var mı?** Evet; Cadde 54 AVM F Blok 1. kattaki klinik Serdivan'ın merkezinde yer alıyor.
 
-## Sayfa bölümleri
+## Sayfalar ve Bölümler
 
 - [Ana sayfa](https://serdivanestetik.com/)
-- [Doktor](https://serdivanestetik.com/#doktor)
-- [Uygulamalar](https://serdivanestetik.com/#uygulamalar)
-- [Öncesi / Sonrası](https://serdivanestetik.com/#sonuclar)
+- [Doktor Özgeçmişi ve Sertifikalar](https://serdivanestetik.com/doktor.html)
+- [Uygulamalar (Ana sayfada)](https://serdivanestetik.com/#uygulamalar)
+- [Öncesi ve Sonrası Tüm Vakalar](https://serdivanestetik.com/oncesi-sonrasi.html)
 - [Hasta görüşleri](https://serdivanestetik.com/#gorusler)
 - [Klinik ve konum](https://serdivanestetik.com/#klinik)
 - [Sık sorulan sorular](https://serdivanestetik.com/#sss)
