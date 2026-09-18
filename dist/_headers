@@ -1,0 +1,26 @@
+# serdivanestetik.com · Cloudflare Pages başlıkları (.htaccess'in karşılığı)
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# CSS/JS adreslerinde ?v= sürüm numarası olduğu için uzun önbellek güvenli
+/styles.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/script.js
+  Cache-Control: public, max-age=31536000, immutable
+
+# Görseller ve video sürümsüz: bir ay
+/assets/*
+  Cache-Control: public, max-age=2592000
+
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=86400
+
+/robots.txt
+  Cache-Control: public, max-age=86400
+
+/sitemap.xml
+  Cache-Control: public, max-age=86400
